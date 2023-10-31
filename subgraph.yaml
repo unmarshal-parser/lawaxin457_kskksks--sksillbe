@@ -1,0 +1,54 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Contract
+    network: base
+    source:
+      address: "0963a1abaf36ca88c21032b82e479353126a1c4b"
+      abi: Contract
+      startBlock: 1802211
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AddressExcludedFromFees
+        - AddressIncludedInFees
+        - Approval
+        - BuyFeeUpdated
+        - LeetPairAdded
+        - LeetPairRemoved
+        - OwnershipTransferred
+        - SellFeeUpdated
+        - Transfer
+        - WhitelistedFactoryAdded
+        - WhitelistedFactoryRemoved
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: AddressExcludedFromFees(address)
+          handler: handleAddressExcludedFromFees
+        - event: AddressIncludedInFees(address)
+          handler: handleAddressIncludedInFees
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: BuyFeeUpdated(uint256,uint256)
+          handler: handleBuyFeeUpdated
+        - event: LeetPairAdded(address)
+          handler: handleLeetPairAdded
+        - event: LeetPairRemoved(address)
+          handler: handleLeetPairRemoved
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: SellFeeUpdated(uint256,uint256)
+          handler: handleSellFeeUpdated
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: WhitelistedFactoryAdded(address)
+          handler: handleWhitelistedFactoryAdded
+        - event: WhitelistedFactoryRemoved(address)
+          handler: handleWhitelistedFactoryRemoved
+      file: ./src/contract.ts
